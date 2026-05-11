@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ricardo Guillen — iOS Application Architect</title>
+<meta name="description" content="iOS Application Architect with 11+ years building modular, long-lived systems for iPhone, iPad, Apple TV and Apple Watch. Based in El Salvador." />
+<meta name="author" content="Ricardo Guillen" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://ricardoguillen.dev/" />
+<meta name="theme-color" content="#1d1d1f" />
+
+<!-- TODO: add favicon — place favicon.ico + apple-touch-icon.png in repo root and uncomment:
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+-->
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ricardoguillen.dev/" />
+<meta property="og:title" content="Ricardo Guillen — iOS Application Architect" />
+<meta property="og:description" content="iOS Application Architect with 11+ years building modular, long-lived systems for iPhone, iPad, Apple TV and Apple Watch. Based in El Salvador." />
+<!-- TODO: create a 1200×630 social card image, place it at /og.png, then uncomment:
+<meta property="og:image" content="https://ricardoguillen.dev/og.png" />
+-->
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ricardo Guillen — iOS Application Architect" />
+<meta name="twitter:description" content="iOS Application Architect with 11+ years building modular, long-lived systems for iPhone, iPad, Apple TV and Apple Watch. Based in El Salvador." />
+<!-- TODO: same 1200×630 image as og:image, then uncomment:
+<meta name="twitter:image" content="https://ricardoguillen.dev/og.png" />
+-->
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ricardo Guillen",
+  "jobTitle": "iOS Application Architect",
+  "url": "https://ricardoguillen.dev",
+  "sameAs": [
+    "https://github.com/rguillen-dev",
+    "https://linkedin.com/in/ricardoguillen"
+  ],
+  "knowsAbout": ["iOS development", "Swift", "SwiftUI", "UIKit", "Mobile architecture"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Applaudo"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "SV"
+  }
+}
+</script>
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --ink: #1d1d1f;
+    --ink-2: #6e6e73;
+    --ink-3: #a1a1a6;
+    --rule: #d2d2d7;
+    --rule-2: #e8e8ed;
+    --panel: #f5f5f7;
+    --accent: #1d1d1f;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection { background: #1d1d1f; color: #fbfbfd; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .shell {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* --- top bar --- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(251, 251, 253, 0.72);
+    border-bottom: 1px solid var(--rule-2);
+  }
+  .topbar .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .mark {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .mark .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: #1d1d1f;
+    border-radius: 50%;
+    margin-right: 10px;
+    transform: translateY(-2px);
+  }
+  .nav {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .nav a:hover { color: var(--ink); }
+
+  /* --- generic section frame --- */
+  section { padding: 120px 0; border-top: 1px solid var(--rule-2); }
+  section:first-of-type { border-top: 0; }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-bottom: 40px;
+  }
+  .eyebrow .idx { color: var(--ink-3); }
+  .eyebrow .bar {
+    flex: 0 0 32px;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  /* --- hero --- */
+  .hero { padding: 140px 0 160px; border-top: 0; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+  .hero h1 {
+    font-size: clamp(56px, 9.5vw, 132px);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    margin: 0;
+    font-weight: 600;
+  }
+  .hero h1 .light { color: var(--ink-3); font-weight: 500; }
+  .hero .tagline {
+    font-size: clamp(20px, 2vw, 28px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+    max-width: 720px;
+    margin: 0;
+    font-weight: 400;
+  }
+  .hero .tagline strong { color: var(--ink); font-weight: 500; }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    gap: 24px;
+  }
+  .hero-meta .cell .k {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+  }
+  .hero-meta .cell .v {
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .hero-meta .cell .v .muted { color: var(--ink-2); }
+
+  /* --- craft grid --- */
+  .craft-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+  .craft-cell {
+    padding: 32px 28px 36px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg);
+    transition: background 200ms ease;
+  }
+  .craft-cell:hover { background: #fff; }
+  .craft-cell .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+  }
+  .craft-cell h3 {
+    margin: 16px 0 0;
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  .craft-cell .tags {
+    margin-top: 24px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .craft-cell .tags span {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-2);
+    padding: 3px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- philosophy --- */
+  .quote-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  blockquote.philosophy {
+    margin: 0;
+    font-size: clamp(28px, 3.6vw, 48px);
+    line-height: 1.18;
+    letter-spacing: -0.028em;
+    font-weight: 500;
+    max-width: 28ch;
+  }
+  blockquote.philosophy .mute { color: var(--ink-3); }
+  blockquote.philosophy::before {
+    content: "\201C";
+    display: block;
+    font-size: 0.5em;
+    line-height: 1;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+    letter-spacing: 0;
+  }
+
+  /* --- selected work --- */
+  .work-list {
+    border-top: 1px solid var(--rule);
+  }
+  .work-row {
+    display: grid;
+    grid-template-columns: 80px 1.4fr 1.2fr 140px;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .work-row .yr {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+  }
+  .work-row .name {
+    font-size: 22px;
+    letter-spacing: -0.018em;
+    font-weight: 500;
+  }
+  .work-row .name .sub {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-2);
+    font-weight: 400;
+    margin-top: 6px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    max-width: 56ch;
+  }
+  .work-row .role {
+    font-size: 13px;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+  }
+  .work-row .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    text-align: right;
+    letter-spacing: 0.04em;
+  }
+  .work-row.muted .name { color: var(--ink-3); font-weight: 400; font-size: 18px; }
+
+  /* --- app placeholders --- */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .app-card {
+    background: var(--panel);
+    border: 1px solid var(--rule-2);
+    border-radius: 24px;
+    padding: 40px 40px 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 560px;
+  }
+  .app-card .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .app-card h3 {
+    margin: 0 0 12px;
+    font-size: 28px;
+    letter-spacing: -0.024em;
+    font-weight: 500;
+  }
+  .app-card .desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 38ch;
+  }
+  .app-card .badge {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--rule);
+    padding: 5px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.6);
+  }
+
+  .device-stage {
+    margin-top: auto;
+    align-self: center;
+    width: 240px;
+    aspect-ratio: 9 / 19.5;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 36px 36px 0 0;
+    padding: 10px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 30px 60px -30px rgba(0,0,0,0.18);
+    position: relative;
+    transform: translateY(20px);
+  }
+  .device-stage .notch {
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 90px; height: 22px;
+    background: #1d1d1f;
+    border-radius: 999px;
+  }
+  .device-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 28px 28px 0 0;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(29,29,31,0.045) 0 2px,
+        transparent 2px 14px
+      );
+    background-color: #f0f0f3;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .device-screen .label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    background: rgba(255,255,255,0.85);
+    border: 1px solid var(--rule);
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+
+  /* --- footer --- */
+  footer.foot {
+    padding: 100px 0 60px;
+    border-top: 1px solid var(--rule-2);
+  }
+  .foot-top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .foot-top h2 {
+    margin: 0;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    max-width: 14ch;
+  }
+  .foot-top h2 .mute { color: var(--ink-3); }
+  .foot-col h4 {
+    margin: 0 0 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .foot-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .foot-col a {
+    font-size: 14px;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.005em;
+  }
+  .foot-col a:hover { color: var(--ink-2); }
+  .foot-col a .ext {
+    width: 10px; height: 10px;
+    color: var(--ink-3);
+  }
+  .foot-col p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+    max-width: 28ch;
+  }
+
+  .foot-bot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+
+  /* --- responsive --- */
+  @media (max-width: 900px) {
+    .shell { padding: 0 24px; }
+    section { padding: 80px 0; }
+    .hero { padding: 80px 0 100px; }
+    .hero-meta { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
+    .craft-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-row {
+      grid-template-columns: 60px 1fr;
+      grid-template-areas:
+        "yr name"
+        ".  role"
+        ".  meta";
+      row-gap: 8px;
+    }
+    .work-row .yr { grid-area: yr; }
+    .work-row .name { grid-area: name; }
+    .work-row .role { grid-area: role; }
+    .work-row .meta { grid-area: meta; text-align: left; }
+    .apps-grid { grid-template-columns: 1fr; }
+    .foot-top { grid-template-columns: 1fr; gap: 40px; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="shell row">
+    <div class="mark"><span class="dot"></span>RICARDO GUILLEN</div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#craft">Craft</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#work">Selected Work</a>
+      <a href="#opensource">Open Source</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="shell hero-grid">
+    <div>
+      <h1>
+        Ricardo<br/>
+        Guillen<span class="light">.</span>
+      </h1>
+    </div>
+
+    <p class="tagline">
+      <strong>iOS Application Architect.</strong> I design the structural systems beneath the apps people actually keep on their home screen &mdash; building for clarity, longevity, and the quiet feel of software that just works.
+    </p>
+
+    <div class="hero-meta">
+      <div class="cell">
+        <div class="k">Based</div>
+        <div class="v">El Salvador <span class="muted">/ remote</span></div>
+      </div>
+      <div class="cell">
+        <div class="k">Practice</div>
+        <div class="v">Swift &middot; SwiftUI &middot; Modular Architecture</div>
+      </div>
+      <div class="cell">
+        <div class="k">Platforms</div>
+        <div class="v">iOS &middot; iPadOS &middot; tvOS &middot; watchOS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CRAFT GRID ============ -->
+<section id="craft">
+  <div class="shell">
+    <div class="eyebrow"><span class="idx">01</span><span class="bar"></span><span>Craft</span></div>
+    <h2 style="margin:0 0 56px; font-size: clamp(36px, 5vw, 56px); letter-spacing:-0.03em; font-weight:500; line-height:1.05; max-width: 18ch;">
+      The disciplines that hold an iOS application together.
+    </h2>
+
+    <div class="craft-grid">
+      <div class="craft-cell">
+        <div>
+          <div class="num">01</div>
+          <h3>Platforms</h3>
+        </div>
+        <div class="tags"><span>iOS</span><span>iPadOS</span><span>tvOS</span><span>watchOS</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">02</div>
+          <h3>Languages</h3>
+        </div>
+        <div class="tags"><span>Swift</span><span>Objective-C</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">03</div>
+          <h3>Architecture</h3>
+        </div>
+        <div class="tags"><span>MVVM</span><span>VIPER</span><span>CLEAN</span><span>SOLID</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">04</div>
+          <h3>Reactive</h3>
+        </div>
+        <div class="tags"><span>Combine</span><span>async/await</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">05</div>
+          <h3>UI</h3>
+        </div>
+        <div class="tags"><span>SwiftUI</span><span>UIKit</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">06</div>
+          <h3>Persistence</h3>
+        </div>
+        <div class="tags"><span>Core Data</span><span>Realm</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">07</div>
+          <h3>Release Engineering</h3>
+        </div>
+        <div class="tags"><span>Fastlane</span><span>Jenkins</span><span>Bitrise</span><span>Azure Pipelines</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">08</div>
+          <h3>Modular Projects</h3>
+        </div>
+        <div class="tags"><span>Tuist</span></div>
+      </div>
+
+      <div class="craft-cell">
+        <div>
+          <div class="num">09</div>
+          <h3>Tools</h3>
+        </div>
+        <div class="tags"><span>Xcode</span><span>Swift Package Manager</span><span>Instruments</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section id="philosophy" style="background: #f5f5f7;">
+  <div class="shell">
+    <div class="eyebrow"><span class="idx">02</span><span class="bar"></span><span>Philosophy</span></div>
+    <div class="quote-wrap">
+      <blockquote class="philosophy">
+        I design for the engineer who inherits this codebase &mdash; <span class="mute">someone joining a year from now who needs to understand, extend, and trust what&rsquo;s already there. Scalability and clarity aren&rsquo;t trade-offs; they&rsquo;re the same decision made well.</span>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELECTED WORK ============ -->
+<section id="work">
+  <div class="shell">
+    <div class="eyebrow"><span class="idx">03</span><span class="bar"></span><span>Selected Work</span></div>
+    <h2 style="margin:0 0 56px; font-size: clamp(36px, 5vw, 56px); letter-spacing:-0.03em; font-weight:500; line-height:1.05; max-width: 20ch;">
+      A few projects I&rsquo;m proud of.
+    </h2>
+
+    <div class="work-list">
+      <div class="work-row">
+        <div class="yr">&mdash;</div>
+        <div class="name">
+          Large-scale US TV Network
+          <span class="sub">iPhone, iPad and Apple TV apps built within a specialized team of ~200 engineers. Modular multi-platform codebase serving millions of viewers.</span>
+        </div>
+        <div class="role">iOS &middot; iPadOS &middot; tvOS</div>
+        <div class="meta">VIA APPLAUDO</div>
+      </div>
+
+      <div class="work-row muted">
+        <div class="yr"></div>
+        <div class="name">More coming soon</div>
+        <div class="role"></div>
+        <div class="meta"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPEN SOURCE ============ -->
+<section id="opensource">
+  <div class="shell">
+    <div class="eyebrow"><span class="idx">04</span><span class="bar"></span><span>Open Source</span></div>
+    <h2 style="margin:0 0 56px; font-size: clamp(36px, 5vw, 56px); letter-spacing:-0.03em; font-weight:500; line-height:1.05; max-width: 18ch;">
+      Work I&rsquo;ve shipped in the open.
+    </h2>
+
+    <div class="work-list">
+      <div class="work-row">
+        <div class="yr">2026</div>
+        <div class="name">
+          LiquidGlass
+          <span class="sub">SwiftUI modifier bringing Apple&rsquo;s iOS&nbsp;26 Liquid Glass material to any view.</span>
+        </div>
+        <div class="role">SwiftUI &middot; iOS 26</div>
+        <div class="meta">COMING SOON</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APP PLACEHOLDERS ============ -->
+<section id="apps">
+  <div class="shell">
+    <div class="eyebrow"><span class="idx">05</span><span class="bar"></span><span>In Flight</span></div>
+    <h2 style="margin:0 0 56px; font-size: clamp(36px, 5vw, 56px); letter-spacing:-0.03em; font-weight:500; line-height:1.05; max-width: 18ch;">
+      Two apps currently on the bench.
+    </h2>
+
+    <div class="apps-grid">
+
+      <article class="app-card">
+        <div class="head">
+          <div>
+            <h3>Highlight</h3>
+            <p class="desc">An Apple-first timeline app for capturing and revisiting the important dates and events in your life.</p>
+          </div>
+          <div class="badge">TestFlight</div>
+        </div>
+        <div class="device-stage">
+          <div class="notch"></div>
+          <div class="device-screen">
+            <div class="label">App Screenshot</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="head">
+          <div>
+            <h3>Agenda</h3>
+            <p class="desc">A school communication suite &mdash; parent iOS app, teacher web app, and Rails backend &mdash; connecting families and classrooms.</p>
+          </div>
+          <div class="badge">Coming mid-2026</div>
+        </div>
+        <div class="device-stage">
+          <div class="notch"></div>
+          <div class="device-screen">
+            <div class="label">App Screenshot</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot" id="contact">
+  <div class="shell">
+    <div class="foot-top">
+      <h2>
+        Building something that deserves to last? <span class="mute">Let&rsquo;s talk.</span>
+      </h2>
+
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://github.com/rguillen-dev" target="_blank" rel="noopener noreferrer">GitHub <svg class="ext" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></li>
+          <li><a href="https://linkedin.com/in/ricardoguillen" target="_blank" rel="noopener noreferrer">LinkedIn <svg class="ext" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 8L8 2M8 2H4M8 2V6"/></svg></a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>Availability</h4>
+        <p>Open to select consulting engagements.</p>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <span>&copy; 2026 Ricardo Guillen</span>
+      <span>SET IN SYSTEM SANS &middot; SF MONO</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
