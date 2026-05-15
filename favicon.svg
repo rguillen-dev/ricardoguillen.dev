@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" fill="#1d1d1f"/>
+  <text x="16" y="16" text-anchor="middle" dominant-baseline="central"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-weight="700" font-size="19" letter-spacing="-1.6" fill="#f5f4f0">RG</text>
+</svg>
