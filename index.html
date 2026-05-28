@@ -371,12 +371,24 @@
     white-space: nowrap;
     background: rgba(255,255,255,0.6);
   }
+  .app-card .app-store-badge {
+    flex-shrink: 0;
+    display: inline-block;
+    line-height: 0;
+  }
+  .app-card .app-store-badge img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
 
   .device-stage {
     margin-top: auto;
     align-self: center;
     width: 240px;
-    aspect-ratio: 9 / 19.5;
+    max-width: 240px;
+    aspect-ratio: 240 / 497;
+    height: 497px;
     background: #fff;
     border: 1px solid var(--rule);
     border-radius: 36px 36px 0 0;
@@ -392,6 +404,7 @@
     width: 90px; height: 22px;
     background: #1d1d1f;
     border-radius: 999px;
+    z-index: 2;
   }
   .device-screen {
     width: 100%;
@@ -420,6 +433,15 @@
     border: 1px solid var(--rule);
     padding: 6px 10px;
     border-radius: 4px;
+  }
+  .device-screen .shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
   }
 
   /* --- footer --- */
@@ -683,6 +705,16 @@
         <div class="meta">VIA APPLAUDO</div>
       </div>
 
+      <div class="work-row">
+        <div class="yr">&mdash;</div>
+        <div class="name">
+          Highlight Moments
+          <span class="sub">Personal life event timeline for iPhone. Fully local &mdash; no accounts, no cloud, no tracking. Built solo from architecture to App Store.</span>
+        </div>
+        <div class="role">iOS</div>
+        <div class="meta"><a href="https://apps.apple.com/us/app/highlight-moments/id6767762435" target="_blank" rel="noopener noreferrer">VIEW ON APP STORE</a></div>
+      </div>
+
       <div class="work-row muted">
         <div class="yr"></div>
         <div class="name">More coming soon</div>
@@ -718,9 +750,9 @@
 <!-- ============ APP PLACEHOLDERS ============ -->
 <section id="apps">
   <div class="shell">
-    <div class="eyebrow"><span class="idx">05</span><span class="bar"></span><span>In Flight</span></div>
+    <div class="eyebrow"><span class="idx">05</span><span class="bar"></span><span>Shipped</span></div>
     <h2 style="margin:0 0 56px; font-size: clamp(36px, 5vw, 56px); letter-spacing:-0.03em; font-weight:500; line-height:1.05; max-width: 18ch;">
-      Two apps currently on the bench.
+      One shipped. One in the works.
     </h2>
 
     <div class="apps-grid">
@@ -729,14 +761,16 @@
         <div class="head">
           <div>
             <h3>Highlight</h3>
-            <p class="desc">An Apple-first timeline app for capturing and revisiting the important dates and events in your life.</p>
+            <p class="desc">A beautiful timeline for birthdays, appointments, and every moment worth remembering. Fully local &mdash; no accounts, no cloud, no tracking.</p>
           </div>
-          <div class="badge">TestFlight</div>
+          <a class="app-store-badge" href="https://apps.apple.com/us/app/highlight-moments/id6767762435" target="_blank" rel="noopener noreferrer" aria-label="Download Highlight on the App Store">
+            <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" />
+          </a>
         </div>
         <div class="device-stage">
           <div class="notch"></div>
           <div class="device-screen">
-            <div class="label">App Screenshot</div>
+            <img class="shot" src="highlight-screenshot.png" alt="Highlight app timeline screen showing upcoming events" />
           </div>
         </div>
       </article>
